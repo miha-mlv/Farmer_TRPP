@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="BeigeColor">#FFEBCD</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="SandyOrangeColor">#F4A460</color>
+    <color name="AquamarineColor">#7FFFD4</color>
+    <color name="Gold">#FFD700</color>
+    <color name="Dark">#000000</color>
+
+</resources>
