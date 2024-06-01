@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +19,7 @@ import com.example.myapplication.Admin.AdminCategoryActivity;
 import com.example.myapplication.Model.Users;
 import com.example.myapplication.Prevalent.Prevalent;
 import com.example.myapplication.Users.HomeActivity;
+import com.example.myapplication.Users.MainActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,9 +27,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rey.material.widget.CheckBox;
 
+import java.util.ArrayList;
+
 import io.paperdb.Paper;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity{
     private Button loginButton;
     private EditText loginPhoneInput, loginPasswordInput;
     private ProgressDialog loadingBar;
@@ -34,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     private String parentDbName = "Users";
     private CheckBox checkBoxRemember;
     TextView adminLink, notAdminLink;
+    ImageButton btnImageBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +52,18 @@ public class LoginActivity extends AppCompatActivity {
         checkBoxRemember = findViewById(R.id.checkbox);
         Paper.init(this);
 
+        btnImageBack = findViewById(R.id.btnImageBack);
+
         adminLink = findViewById(R.id.admin_panel_link);
         notAdminLink = findViewById(R.id.not_admin_panel_link);
+
+        btnImageBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(mainIntent);
+            }
+        });
 
         adminLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,9 +140,15 @@ public class LoginActivity extends AppCompatActivity {
                             if(parentDbName.equals("Users"))
                             {
                                 loadingBar.dismiss();
+                                ArrayList<String> dataArray = new ArrayList<String>();
+                                dataArray.add(usersData.getName());
+                                dataArray.add(usersData.getPhone());
+                                dataArray.add(usersData.getPassword());
                                 Toast.makeText(LoginActivity.this, "Успешный вход", Toast.LENGTH_SHORT).show();
-
                                 Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
+                                homeIntent.putExtra("usersName", usersData.getName());
+                                homeIntent.putExtra("usersPhone", usersData.getPhone());
+                                homeIntent.putExtra("usersPassword", usersData.getPassword());
                                 startActivity(homeIntent);
                             }
                             else if(parentDbName.equals("Admins"))

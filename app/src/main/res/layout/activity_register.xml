@@ -29,6 +29,12 @@
         android:textSize="18sp"
         android:textStyle="bold"
         />
+    <ImageButton
+        android:id="@+id/btnImageBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back_image2"
+        />
     <EditText
         android:id="@+id/register_phone_input"
         android:layout_width="match_parent"

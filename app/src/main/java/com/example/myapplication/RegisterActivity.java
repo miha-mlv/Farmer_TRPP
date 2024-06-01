@@ -11,9 +11,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.myapplication.Users.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -25,10 +27,13 @@ import com.google.firebase.ktx.Firebase;
 
 import java.util.HashMap;
 
+import io.paperdb.Paper;
+
 public class RegisterActivity extends AppCompatActivity {
     private Button registerButton;
     private EditText usernameInput, phoneInput, passwordInput;
     private ProgressDialog loadingBar;
+    ImageButton btnImageBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,12 +43,22 @@ public class RegisterActivity extends AppCompatActivity {
         usernameInput = findViewById(R.id.register_user_name);
         phoneInput = findViewById(R.id.register_phone_input);
         passwordInput = findViewById(R.id.register_password_input);
+        btnImageBack = findViewById(R.id.btnImageBack);
         loadingBar = new ProgressDialog(this);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CreateAccount();
+            }
+        });
+
+        btnImageBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Paper.book().destroy();
+                Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
+                startActivity(mainIntent);
             }
         });
     }

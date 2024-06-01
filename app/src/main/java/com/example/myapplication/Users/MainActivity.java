@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -22,12 +23,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.paperdb.Paper;
 
 public class MainActivity extends AppCompatActivity {
     private Button loginButton, joinButton;
 
     private ProgressDialog loadingBar;
+    private String nameUser, passwordUser, phoneUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +63,11 @@ public class MainActivity extends AppCompatActivity {
         String UserPasswordKey = Paper.book().read(Prevalent.UserPasswordKey);
         if (UserPhoneKey != "" && UserPasswordKey != "") {
             if (!TextUtils.isEmpty(UserPhoneKey) && !TextUtils.isEmpty(UserPasswordKey)) {
-                ValidateUser(UserPhoneKey, UserPasswordKey);
                 loadingBar.setTitle("Вход в приложение");
                 loadingBar.setMessage("Пожалуйста подождите");
                 loadingBar.setCanceledOnTouchOutside(false);
                 loadingBar.show();
+                ValidateUser(UserPhoneKey, UserPasswordKey);
             }
         }
     }
@@ -80,10 +85,18 @@ public class MainActivity extends AppCompatActivity {
                     if (usersData.getPhone().equals(phone)) {
                         if (usersData.getPassword().equals(password)) {
                             loadingBar.dismiss();
+//                            ArrayList<String> dataArray = new ArrayList<String>();
+//                            dataArray.add(usersData.getName());
+//                            dataArray.add(usersData.getPhone());
+//                            dataArray.add(usersData.getPassword());
                             Toast.makeText(MainActivity.this, "Успешный вход", Toast.LENGTH_SHORT).show();
                             Intent homeIntent = new Intent(MainActivity.this, HomeActivity.class);
+                            homeIntent.putExtra("usersName", usersData.getName());
+                            homeIntent.putExtra("usersPhone", usersData.getPhone());
+                            homeIntent.putExtra("usersPassword", usersData.getPassword());
                             startActivity(homeIntent);
                         } else {
+                            Toast.makeText(MainActivity.this, "Неверный пароль", Toast.LENGTH_SHORT).show();
                             loadingBar.dismiss();
                         }
                     }

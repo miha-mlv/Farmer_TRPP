@@ -60,5 +60,4 @@
         android:textColor="@android:color/black"
         android:textSize="25dp" 
         />
-
 </RelativeLayout>

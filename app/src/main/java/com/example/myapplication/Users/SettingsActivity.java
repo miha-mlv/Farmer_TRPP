@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.Model.Users;
 import com.example.myapplication.Prevalent.Prevalent;
 import com.example.myapplication.R;
 import com.google.firebase.database.DatabaseReference;
@@ -24,21 +25,31 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SettingsActivity extends AppCompatActivity {
     private CircleImageView profileImageView;
+    private DatabaseReference RootRef;
     private EditText fullname, phone, adress;
     private TextView saveTextbtn, closeTextBtn;
     private String cheker = "";
     private Uri imageUri;
+    private String usersName, usersPhone, usersPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        Bundle bundle = getIntent().getExtras();
+        usersName = bundle.getString("usersName");
+        usersPhone = bundle.getString("usersPhone");
+        usersPassword = bundle.getString("usersPassword");
         init();
+
+        RootRef = FirebaseDatabase.getInstance().getReference();
     }
     private void init()
     {
         profileImageView = findViewById(R.id.settings_account_image);
         fullname = findViewById(R.id.settings_fullname);
+        fullname.setText(usersName);
         phone = findViewById(R.id.settings_phone);
+        phone.setText(usersPhone);
         adress = findViewById(R.id.settings_adres);
         saveTextbtn = findViewById(R.id.save_settings_tw);
         closeTextBtn = findViewById(R.id.close_settings_tw);
@@ -53,13 +64,14 @@ public class SettingsActivity extends AppCompatActivity {
         saveTextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(cheker.equals("clicked"))
-                {
-                    userInfoSaved();
-                }
-                else {
-                    updateOnlyUserInfo();
-                }
+                updateOnlyUserInfo();
+//                if(cheker.equals("clicked"))
+//                {
+//                    userInfoSaved();
+//                }
+//                else {
+//                    updateOnlyUserInfo();
+//                }
             }
         });
 
@@ -103,15 +115,28 @@ public class SettingsActivity extends AppCompatActivity {
     private void updateOnlyUserInfo() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        HashMap<String, Object> userMap = new HashMap<>();
-        userMap.put("name", fullname.getText().toString());
-        userMap.put("adress", adress.getText().toString());
-        userMap.put("phoneOrder", phone.getText().toString());
-        ref.child(Prevalent.currnetOnlineUser.getPhone()).updateChildren(userMap);
+        if(adress.getText().toString().equals(""))
+        {
+            HashMap<String, Object> userMap = new HashMap<>();
+            userMap.put("name", fullname.getText().toString());
+            userMap.put("phone", phone.getText().toString());
+            ref.child(usersPhone).updateChildren(userMap);
 
-        startActivity(new Intent(SettingsActivity.this, HomeActivity.class));
-        Toast.makeText(SettingsActivity.this, "Успешно сохранено", Toast.LENGTH_SHORT).show();
-        finish();
+            startActivity(new Intent(SettingsActivity.this, HomeActivity.class));
+            Toast.makeText(SettingsActivity.this, "Успешно сохранено", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        else {
+            HashMap<String, Object> userMap = new HashMap<>();
+            userMap.put("name", fullname.getText().toString());
+            userMap.put("adress", adress.getText().toString());
+            userMap.put("phone", phone.getText().toString());
+            ref.child(Prevalent.currnetOnlineUser.getPhone()).updateChildren(userMap);
+
+            startActivity(new Intent(SettingsActivity.this, HomeActivity.class));
+            Toast.makeText(SettingsActivity.this, "Успешно сохранено", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
 

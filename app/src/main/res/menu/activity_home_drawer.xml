@@ -5,18 +5,14 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_basket"
-            android:icon="@drawable/basket"
-            android:title="Корзина"
+            android:id="@+id/nav_catalog"
+            android:icon="@drawable/catalogimage"
+            android:title="Каталог"
             android:iconTint="@color/Gold"/>
         <item
-            android:id="@+id/nav_orders"
-            android:icon="@drawable/orders"
-            android:title="Заказы" />
-        <item
-            android:id="@+id/nav_category"
-            android:icon="@drawable/category"
-            android:title="Категории" />
+            android:id="@+id/nav_map"
+            android:icon="@drawable/mapimage"
+            android:title="Карта" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/settings"
