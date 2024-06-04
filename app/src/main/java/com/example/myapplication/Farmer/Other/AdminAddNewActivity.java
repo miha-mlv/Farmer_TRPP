@@ -1,4 +1,4 @@
-package com.example.myapplication.Admin;
+package com.example.myapplication.Farmer.Other;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +21,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Firebase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -137,8 +136,7 @@ public class AdminAddNewActivity extends AppCompatActivity {
                 String message = e.toString();
                 Toast.makeText(AdminAddNewActivity.this, message, Toast.LENGTH_SHORT).show();
                 loadingBar.dismiss();
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            }}).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Toast.makeText(AdminAddNewActivity.this, "Изображение успешно загружено", Toast.LENGTH_SHORT).show();

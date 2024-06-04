@@ -4,40 +4,30 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
-import com.example.myapplication.BasketFragment;
 import com.example.myapplication.LoginActivity;
-import com.example.myapplication.MainFragment;
+import com.example.myapplication.UserFragments.MainFragment;
 import com.example.myapplication.Model.Users;
 import com.example.myapplication.R;
-import com.example.myapplication.SettingsFragment;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.myapplication.UserFragments.MapFragment;
+import com.example.myapplication.UserFragments.SettingsFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.databinding.ActivityHomeBinding;
-
-import java.util.ArrayList;
 
 import io.paperdb.Paper;
 
@@ -59,7 +49,7 @@ public class HomeActivity extends AppCompatActivity {
         usersPhone = bundle.getString("usersPhone");
         usersPassword = bundle.getString("usersPassword");
 
-        binding.appBarHome.toolbar.setTitle("Главная");
+        binding.appBarHome.toolbar.setTitle("Каталог");
         setSupportActionBar(binding.appBarHome.toolbar);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.rgb(244, 164, 96)));
 
@@ -70,6 +60,7 @@ public class HomeActivity extends AppCompatActivity {
         TextView twUserPhoneNavView = navigationView.getHeaderView(0).findViewById(R.id.twUserPhone);
         twUserNameNavView.setText(usersName);
         twUserPhoneNavView.setText(usersPhone);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, binding.appBarHome.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
@@ -81,6 +72,8 @@ public class HomeActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, new MainFragment()).commit();
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -89,26 +82,25 @@ public class HomeActivity extends AppCompatActivity {
                 int id = item.getItemId();
                 if(id == R.id.nav_catalog)
                 {
-                    //переход к товарам
-                    selectFragment = new BasketFragment();
+                    binding.appBarHome.toolbar.setTitle("Каталог");
+                    selectFragment = new MainFragment();
                 }else if(id == R.id.nav_map)
                 {
-                    //Переход к карте
+                    selectFragment = new MapFragment();
+                    Bundle bundle = new Bundle();
+                    binding.appBarHome.toolbar.setTitle("Карта");
+                    bundle.putBoolean("flag", false);
+                    selectFragment.setArguments(bundle);
                 }else if(id == R.id.nav_settings)
                 {
                     Log.d("fragmentSettings", "fragmentSettings");
                     selectFragment = new SettingsFragment();
                     Bundle bundle = new Bundle();
+                    binding.appBarHome.toolbar.setTitle("Настройки");
                     bundle.putString("Name", usersName);
                     bundle.putString("Phone", usersPhone);
                     bundle.putString("Password", usersPassword);
                     selectFragment.setArguments(bundle);
-
-                    //Intent settingsIntent = new Intent(this, SettingsActivity.class);
-                    //settingsIntent.putExtra("usersName", usersName);
-                    //settingsIntent.putExtra("usersPhone", usersPhone);
-                    //settingsIntent.putExtra("usersPassword", usersPassword);
-                    //startActivity(settingsIntent);
                 }else if(id == R.id.nav_logout)
                 {
                     Paper.book().destroy();
@@ -129,18 +121,12 @@ public class HomeActivity extends AppCompatActivity {
                     DrawerLayout drawerLayout = binding.drawerLayout;
                     drawerLayout.closeDrawer(GravityCompat.START);
                     getSupportFragmentManager().beginTransaction().
-                            replace(R.id.fragmentContainer, selectFragment).commit();
+                            replace(R.id.fragmentContainer, selectFragment).addToBackStack(null).commit();
                     return true;
                 }
             }
         });
 
-//        mAppBarConfiguration = new AppBarConfiguration.Builder(
-//                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
-//                .setOpenableLayout(drawer)
-//                .build();
-
-        fragmentManager = getSupportFragmentManager();
 
     }
 

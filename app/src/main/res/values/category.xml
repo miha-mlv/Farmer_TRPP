@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="category_products">
+        <item>Молочные продукты</item>
+        <item>Хлебобулочные изделия</item>
+        <item>Мясо</item>
+        <item>Цветы</item>
+        <item>Семена</item>
+        <item>Соления</item>
+        <item>Фрукты</item>
+        <item>Овощи</item>
+    </string-array>
+
+</resources>

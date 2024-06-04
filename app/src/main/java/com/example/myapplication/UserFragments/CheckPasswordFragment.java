@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.UserFragments;
 
 import android.os.Bundle;
 
@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.myapplication.Model.Users;
+import com.example.myapplication.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

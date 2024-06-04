@@ -6,16 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.DocumentsContract;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.myapplication.Users.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -23,7 +20,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.ktx.Firebase;
 
 import java.util.HashMap;
 
@@ -103,26 +99,31 @@ public class RegisterActivity extends AppCompatActivity {
                     userDataMap.put("name", username);
                     userDataMap.put("password", password);
 
-                    RootRef.child("Users").child(phone).updateChildren(userDataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    RootRef.child("Users").child(phone).updateChildren(userDataMap)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful())
                             {
                                 loadingBar.dismiss();
-                                Toast.makeText(RegisterActivity.this, "Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "Регистрация прошла успешно"
+                                        , Toast.LENGTH_SHORT).show();
 
-                                Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                Intent loginIntent = new Intent(RegisterActivity.this
+                                        , LoginActivity.class);
                                 startActivity(loginIntent);
                             }
                             else {
                                 loadingBar.dismiss();
-                                Toast.makeText(RegisterActivity.this, "Ошибка регистрации.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "Ошибка регистрации."
+                                        , Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
                 }
                 else {
-                    Toast.makeText(RegisterActivity.this, "Номер " + phone + " уже зарегистрирован", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Номер " + phone + " уже зарегистрирован"
+                            , Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                     Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(loginIntent);

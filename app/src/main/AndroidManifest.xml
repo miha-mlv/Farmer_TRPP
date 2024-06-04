@@ -4,6 +4,10 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +20,7 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".Admin.MainFarmerActivity"
+            android:name=".Farmer.MainFarmerActivity"
             android:exported="false" />
         <activity
             android:name=".Users.SettingsActivity"
@@ -33,10 +37,10 @@
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.MyApplication.NoActionBar" />
         <activity
-            android:name=".Admin.AdminCategoryActivity"
+            android:name=".Farmer.Other.AdminCategoryActivity"
             android:exported="false" />
         <activity
-            android:name=".Admin.AdminAddNewActivity"
+            android:name=".Farmer.Other.AdminAddNewActivity"
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
@@ -47,7 +51,7 @@
         <!-- android:name="com.theartofdev.edmodo.cropper.CropImageActivity" -->
         <!-- android:theme="@style/Base.Theme.AppCompat"/> -->
         <activity
-            android:name=".Users.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

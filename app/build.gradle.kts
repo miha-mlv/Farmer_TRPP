@@ -55,5 +55,7 @@ dependencies {
     implementation("de.hdodenhof:circleimageview:3.1.0")
 //    implementation("com.theartofdev.edmodo:android-image-cropper:2.8.0")
     implementation("com.oginotihiro:cropview:1.0.0")
+    implementation("org.osmdroid:osmdroid-android:6.1.13")
+    implementation("com.github.MKergall:osmbonuspack:6.9.0")
 
 }

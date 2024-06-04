@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragmentAddProducts"
+    tools:context=".Farmer.FarmerFragments.AddProductsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/etNameProducts"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="4dp"
+            android:hint="Название товара"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etNameProducts" />
+
+        <ImageButton
+            android:id="@+id/addImageProduct"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/imageproduct"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPriceProduct" />
+
+        <EditText
+            android:id="@+id/etDescriptionProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Описание товара"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerCategory" />
+
+        <EditText
+            android:id="@+id/etPriceProduct"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Цена товара"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etDescriptionProduct" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Загрузите фотографию продукта"
+            android:textSize="10sp"
+            app:layout_constraintStart_toEndOf="@+id/addImageProduct"
+            app:layout_constraintTop_toBottomOf="@+id/etPriceProduct" />
+
+        <Button
+            android:id="@+id/btnAddProduct"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/button"
+            android:text="Разместить товар"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/map" />
+
+        <org.osmdroid.views.MapView
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addImageProduct">
+
+        </org.osmdroid.views.MapView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

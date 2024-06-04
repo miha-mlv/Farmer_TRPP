@@ -1,4 +1,4 @@
-package com.example.myapplication.Users;
+package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,25 +6,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.myapplication.LoginActivity;
 import com.example.myapplication.Model.Users;
 import com.example.myapplication.Prevalent.Prevalent;
-import com.example.myapplication.R;
-import com.example.myapplication.RegisterActivity;
+import com.example.myapplication.Users.HomeActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.paperdb.Paper;
 
